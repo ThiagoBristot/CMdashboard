@@ -213,10 +213,12 @@ export default class ConEstoque extends Component {
     }
 
     buscarProdutos = () => {
+        const authToken = 'ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW';
         fetch('https://quiet-carefully-elk.ngrok-free.app/produtos', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Token ${authToken}`,
             }
         })
         .then(response => {
