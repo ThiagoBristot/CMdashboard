@@ -217,23 +217,23 @@ export default class ConEstoque extends Component {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                // Qualquer outro cabeçalho necessário, por exemplo, se você precisar de autenticação
-            },
+            }
         })
         .then(response => {
             if (response.ok) {
-                return response.json(); // Converte a resposta para JSON
+                return response.json();  // Converte a resposta para JSON
             } else {
                 throw new Error('Erro ao obter dados');
             }
         })
         .then(data => {
-            console.log(data.produtos); // Aqui você terá os produtos
+            console.log('Produtos recebidos:', data);
+            // Aqui você pode manipular os dados de acordo com sua necessidade
         })
         .catch(error => {
-            console.error('Erro ao buscar produtos:', error);
+            console.error('Erro:', error);
         });
-    }
+    };
 
     buscarTipos = () => {
         fetch("http://localhost:5000/tipoprodutos")

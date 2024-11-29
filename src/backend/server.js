@@ -6,7 +6,13 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://cm-dashboard-wine.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+};
+
+app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 
