@@ -1,0 +1,12 @@
+BD
+
+DATABASE 
+daledelivery
+
+TABLES
+
+clientes; <- dados dos clientes, foreign key p/ o ultimo pedido, junto da data, para filtragem posterior
+financeiro; <- conterá os dados recebidos, assim de valores pagos a plataforma, taxas, etc
+pedidos; <- controle de pedidos realizados pelos clientes, foreign key com id do cliente em cada pedido
+produtos; <- estoque, produto com id, CB, nome, descricao, tipo
+CMusuario; <- table para guardar dados de login dos funcionarios no CM - ID, usuario, senha criptografada, cargo

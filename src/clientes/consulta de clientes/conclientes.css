@@ -1,0 +1,190 @@
+:root {
+    --background-color: #f0f0f0;
+    --header-color: #3c556d;
+    --text-color: #000;
+    --input-bg-color: #d6d6d6ba;
+    --input-border-color: #ccc;
+    --hover-bg-color: #cccccc;
+    --hover-input-color: #515151;
+    --card-bg-color: white;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --header-text-color: white;
+    --filter-hover-bg-color: #e0e0e0;
+    --column-header-bg-color: #34495e;
+    --column-header-text-color: #ffffff;
+}
+
+.conclientes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 3vh;
+}
+
+.conclientes-header {
+    background: linear-gradient(90deg, #3c4246, #212325, #1a1a1d);
+    color: var(--header-text-color);
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.conclientes-titulo {
+    margin: 0;
+}
+
+.conclientes-nav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.conclientes-nav-ul {
+    list-style-type: none;
+    display: grid;
+    text-align: center;
+    grid-template-columns: repeat(2, 10vw);
+    gap: 15px;
+    width: 40%;
+}
+
+.conclientes-nav input {
+    padding: 5px 70px;
+    height: 3vh;
+    border-radius: 15px;
+    border: 1px solid var(--input-border-color);
+    outline: none;
+    text-align: start;
+}
+
+.conclientes-nav input::placeholder {
+    color: var(--hover-input-color);
+}
+
+.conclientes-header-encontrados {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.conclientes-encontrados {
+    background-color: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    width: 100%;
+}
+
+.conclientes-encontrados-colunas {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    background: linear-gradient(90deg, #3c4246, #212325, #1a1a1d);
+    color: var(--column-header-text-color);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.conclientes-encontrados-ul {
+    list-style-type: none;
+    padding-left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.conclientes-encontrados-ul li {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 10px;
+    border-bottom: 1px solid var(--input-border-color);
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.conclientes-encontrados-ul li:hover {
+    background-color: var(--filter-hover-bg-color);
+}
+
+.conclientes-filter-btn {
+  align-items: center;
+  appearance: none;
+  background-color: #fff;
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: #3c4043;
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-family: "Google Sans",Roboto,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: .25px;
+  line-height: normal;
+  max-width: 100%;
+  overflow: visible;
+  padding: 2px 16px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform,opacity;
+  z-index: 0;
+}
+
+.conclientes-filter-btn:hover {
+  background: #F6F9FE;
+  color: #174ea6;
+}
+
+.conclientes-filter-btn:active {
+  box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+  outline: none;
+}
+
+.conclientes-filter-btn:focus {
+  outline: none;
+  border: 2px solid #4285f4;
+}
+
+.conclientes-filter-btn:not(:disabled) {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.conclientes-filter-btn:not(:disabled):hover {
+  box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+}
+
+.conclientes-filter-btn:not(:disabled):focus {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.conclientes-filter-btn:not(:disabled):active {
+  box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+}
+
+.conclientes-filter-btn:disabled {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}

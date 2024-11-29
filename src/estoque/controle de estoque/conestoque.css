@@ -1,0 +1,405 @@
+/* Estilo geral para o componente de estoque */
+.conestoque {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o cabeçalho */
+.conestoque-header {
+    background: linear-gradient(90deg, #31363a, #1d1f21, #070708);
+    color: white;
+    width: 100%;
+}
+
+.conestoque-header h1 {
+    font-size: 24px;
+}
+
+/* Seção principal */
+.conestoque-section {
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.conestoque-addnew-div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.conestoque-addnew-btn {
+    background-color: #d6d6d6ba; 
+    color: #000000; 
+    border: none;
+    padding: 10px 10px;
+    border-radius: 15px;
+    width: fit-content;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.conestoque-addnew-btn:hover {
+    background-color: #cccccc; 
+}
+
+.conestoque-btns-div {
+    display: grid;
+    grid-template-columns: repeat(2, 10vw);
+    width: 100%;
+    gap: 10px;
+    justify-content: start;
+    align-items: center;
+}
+
+.conestoque-filter-btn {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #3c4043;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 16px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+}
+  
+.conestoque-filter-btn:hover {
+    background: #F6F9FE;
+    color: #174ea6;
+}
+  
+.conestoque-filter-btn:active {
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+    outline: none;
+}
+  
+.conestoque-filter-btn:focus {
+    outline: none;
+    border: 2px solid #4285f4;
+}
+  
+.conestoque-filter-btn:not(:disabled) {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+  
+.conestoque-filter-btn:not(:disabled):hover {
+    box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+}
+  
+.conestoque-filter-btn:not(:disabled):focus {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+  
+.conestoque-filter-btn:not(:disabled):active {
+    box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+}
+  
+.conestoque-filter-btn:disabled {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.conestoque-input-div {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    width: 100%;
+    gap: 5%;
+}
+
+.conestoque-input-btn-div {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.conestoque-input-div input {
+    width: 55%;
+    margin-right: 4%;
+}
+
+
+.conestoque-filtros input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.conestoque-filtros input::placeholder {
+    color: #515151; 
+}
+
+/* Colunas para os títulos */
+.conestoque-div-colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ; 
+    gap: 10px;
+    width: 100%;
+    background: linear-gradient(90deg, #31363a, #1d1f21, #070708);
+    color: #ffff; 
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 1vh;
+}
+
+.conestoque-div-colunas,
+.conestoque-div-produtos ul li {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.conestoque-div-colunas span,
+.conestoque-div-produtos li span {
+    text-align: center;
+    padding: 5px;
+}
+
+/* Estilo para os produtos */
+.conestoque-div-produtos {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.conestoque-div-produtos ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.conestoque-div-produtos li {
+    width: 98.5%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 8px;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #dcdcdc;
+    gap: 15px;
+}
+
+.conestoque-div-produtos li:hover {
+    background-color: #e0f7fa;
+    cursor: pointer;
+}
+
+.conestoque-div-produtos li span {
+    flex: 1;
+    text-align: center;
+    color: black;
+}
+
+.conestoque-div-produtos li svg {
+    margin: 5px;
+}
+
+.conestoque-div-produtos svg:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+
+}
+
+
+.conestoque-edit:hover {
+    color: rgb(39, 143, 178);
+}
+
+.conestoque-delete:hover {
+    color: red;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+    max-width: 90%;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Estilos para o modal Gerenciar Tipos */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: center;
+}
+
+.modal-content h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    margin: 10px 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilos para os botões específicos do Gerenciar Tipos */
+.gerenciartipos-btn-adicionar {
+    background-color: #28a745; /* Verde para adicionar */
+    color: white;
+}
+
+.gerenciartipos-btn-adicionar:hover {
+    background-color: #218838;
+}
+
+.gerenciartipos-btn-salvar {
+    background-color: #28a745; /* Amarelo para salvar */
+    color: white;
+}
+
+.gerenciartipos-btn-salvar:hover {
+    background-color: #218838;
+}
+
+.gerenciartipos-btn-excluir {
+    background-color: #dc3545; /* Vermelho para excluir */
+    color: white;
+}
+
+.gerenciartipos-btn-excluir:hover {
+    background-color: #c82333;
+}
+
+.modal-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-content ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-content ul li:last-child {
+    border-bottom: none;
+}
+
+.modal-content ul li input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

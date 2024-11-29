@@ -1,0 +1,363 @@
+
+
+
+.manclientes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); 
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 3vh;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.manclientes-header {
+    background: linear-gradient(90deg, #31363a, #1d1f21, #070708);
+    color: white;
+    width: 100%;
+}
+
+.manclientes-filtros {
+    display: flex;
+    justify-content: start;
+    
+    width: 100%;
+    gap: 10px; 
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+.manclientes-btns-div {
+    display: grid;
+    grid-template-columns: repeat(2, 10vw);
+    width: 100%;
+    gap: 10px;
+    justify-content: start;
+    align-items: center;
+}
+
+.manclientes-filter-btn {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #3c4043;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 16px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+}
+  
+.manclientes-filter-btn:hover {
+    background: #F6F9FE;
+    color: #174ea6;
+}
+  
+.manclientes-filter-btn:active {
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+    outline: none;
+}
+  
+.manclientes-filter-btn:focus {
+    outline: none;
+    border: 2px solid #4285f4;
+}
+  
+.manclientes-filter-btn:not(:disabled) {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+  
+.manclientes-filter-btn:not(:disabled):hover {
+    box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+}
+  
+.manclientes-filter-btn:not(:disabled):focus {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+  
+.manclientes-filter-btn:not(:disabled):active {
+    box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+}
+  
+.manclientes-filter-btn:disabled {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.manclientes-input-div {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    width: 60%;
+    gap: 5%;
+}
+
+.manclientes-input-btn-div {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.manclientes-input-div input {
+    width: 75%;
+    margin-right: 4%;
+}
+
+
+.manclientes-filtros input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.manclientes-filtros input::placeholder {
+    color: #515151; 
+}
+
+.manclientes-lista {
+    width: 90%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.manclientes-lista p {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #000000; 
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.manclientes-lista-ul {
+    list-style-type: none; 
+    padding-left: 0;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.manclientes-colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    gap: 10px;
+    width: 90%;
+    background: linear-gradient(90deg, #31363a, #1d1f21, #070708);
+    color: #ffff; 
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.cliente-dataUltimoPedido {
+    margin-right: 6vw;
+    margin-left: 1vw;
+}
+
+.manclientes-colunas span {
+    padding: 5px 10px;
+}
+
+.manclientes-lista-divC {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #f0f0f0; 
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.manclientes-lista-divC:hover {
+    background-color: #e0e0e0; 
+}
+
+.manclientes-lista-divC:last-child {
+    border-bottom: none; 
+}
+
+.manclientes-lista-divC svg {
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+}
+
+.manclientes-lista-divC svg:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+
+}
+
+.manclientes-lista-divC .manclientes-lista-divC-edit:hover {
+    color: rgb(39, 143, 178);
+}
+
+.manclientes-lista-divC .manclientes-lista-divC-delete:hover {
+    color: red;
+}
+.manclientes-lista-divC li {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 15px;
+    text-align: center;
+}
+
+.manclientes-lista-divC li span {
+}
+
+.manclientes-addnew-div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.manclientes-addnew-btn {
+    background-color: #d6d6d6ba; 
+    color: #000000; 
+    border: none;
+    padding: 10px 10px;
+    border-radius: 15px;
+    width: fit-content;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.manclientes-addnew-btn:hover {
+    background-color: #cccccc; 
+}
+/* Estilos Gerais dos Modais */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Estilos dos Títulos */
+  .modal-content h2 {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  /* Estilos dos Inputs */
+  .modal-content input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Estilos dos Botões */
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .modal-buttons button {
+    background-color: #007bff; /* Azul */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-buttons button:hover {
+    background-color: #0056b3; /* Azul escuro */
+  }
+  
+  .modal-buttons button:focus {
+    outline: none;
+  }
+  
+  /* Estilos do Botão de Fechar */
+  .modal-buttons button:nth-child(1) {
+    background-color: #6c757d; /* Cinza */
+  }
+  
+  .modal-buttons button:nth-child(1):hover {
+    background-color: #5a6268; /* Cinza escuro */
+  }
+  
+
+.manclientes-section-filtros-addnew {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
