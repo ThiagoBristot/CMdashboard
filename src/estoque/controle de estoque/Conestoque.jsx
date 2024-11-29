@@ -217,7 +217,6 @@ export default class ConEstoque extends Component {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "authorization": "Bearer {ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW}",
             }
         })
         .then(response => {
