@@ -216,23 +216,14 @@ export default class ConEstoque extends Component {
         fetch('https://quiet-carefully-elk.ngrok-free.app/produtos')
         .then(response => {
             if (response.ok) {
-                return response.text();  // Trata como texto (HTML)
+                return response.json();  // Converte a resposta para JSON
             } else {
                 throw new Error('Erro ao obter dados');
             }
         })
-        .then(html => {
-            console.log('HTML recebido:', html);
-            // Use o DOMParser para analisar o HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            
-            // Aqui você pode manipular o HTML como quiser, por exemplo, extrair os produtos
-            // Isso é apenas um exemplo, adaptação de acordo com a estrutura do seu HTML.
-            const produtos = doc.querySelectorAll('.produto');
-            produtos.forEach(produto => {
-                console.log(produto.textContent);
-            });
+        .then(data => {
+            console.log('Produtos recebidos:', data.produtos);  // Acessa diretamente os produtos
+            // Aqui você pode manipular os dados de acordo com sua necessidade, exibir na tela
         })
         .catch(error => {
             console.error('Erro:', error);
