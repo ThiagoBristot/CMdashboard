@@ -213,7 +213,13 @@ export default class ConEstoque extends Component {
     }
 
     buscarProdutos = () => {
-        fetch('https://quiet-carefully-elk.ngrok-free.app/produtos')
+        fetch('https://quiet-carefully-elk.ngrok-free.app/produtos', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": "69420",
+            }
+        })
         .then(response => {
             if (response.ok) {
                 return response.json();  // Converte a resposta para JSON
@@ -222,8 +228,8 @@ export default class ConEstoque extends Component {
             }
         })
         .then(data => {
-            console.log('Produtos recebidos:', data.produtos);  // Acessa diretamente os produtos
-            // Aqui você pode manipular os dados de acordo com sua necessidade, exibir na tela
+            console.log('Produtos recebidos:', data);
+            // Aqui você pode manipular os dados de acordo com sua necessidade
         })
         .catch(error => {
             console.error('Erro:', error);
