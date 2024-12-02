@@ -214,15 +214,17 @@ export default class ConEstoque extends Component {
 
     buscarProdutos = () => {
         const authToken = 'ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW';
-        fetch('https://quiet-carefully-elk.ngrok-free.app/produtos', {
+        fetch('https://c5fc-2804-2b40-205-d001-1cbb-6d6e-66c0-809c.ngrok-free.app/produtos', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${authToken}`,
+                'ngrok-skip-browser-warning': 1
             }
         })
         .then(response => {
             if (response.ok) {
+                console.log(response);
                 return response.json();  // Converte a resposta para JSON
             } else {
                 throw new Error('Erro ao obter dados');
@@ -230,7 +232,6 @@ export default class ConEstoque extends Component {
         })
         .then(data => {
             console.log('Produtos recebidos:', data);
-            // Aqui você pode manipular os dados de acordo com sua necessidade
         })
         .catch(error => {
             console.error('Erro:', error);
