@@ -22,6 +22,7 @@ class ModalEdicao extends Component {
       const { cliente } = this.props;
       this.setState({
         nomeCliente: cliente.nomeCliente,
+        CPFCliente: cliente.CPFcliente,
         enderecoCliente: cliente.enderecoCliente || "",
         telefoneCliente: cliente.telefoneCliente || "",
         emailCliente: cliente.emailCliente || "",

@@ -231,7 +231,7 @@ export default class SideBar extends Component<{}, State> {
                         {isFinanceOpen && (
                             <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }} className="sidebar-finance-div">
                                 <strong>
-                                    <div onClick={() => this.props.onComponentSelect("PaymentControl")}>Controle de Pagamentos</div>
+                                    <div onClick={() => this.props.onComponentSelect("PaymentControl")}>Controle de entradas/saídas</div>
                                     <div onClick={() => this.props.onComponentSelect("FinanceReports")}>Relatórios Financeiros</div>
                                 </strong>
                             </div>

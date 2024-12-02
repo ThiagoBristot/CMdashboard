@@ -12,6 +12,7 @@ class ModalCadastro extends Component {
       valorEntrada: "",
       valorSaida: "",
       numeroSerie: "",
+      tipos: [],
     };
   
     handleChange = (e) => {
@@ -22,10 +23,10 @@ class ModalCadastro extends Component {
       const { onSave } = this.props;
       onSave(this.state); // Passa todos os dados do novo produto para o método onSave
     };
-  
+
     render() {
       const { isOpen, onClose } = this.props;
-      const { nomeProduto, descricaoProduto, idTipoProduto, valorEntrada, valorSaida, numeroSerie } = this.state;
+      const { nomeProduto, descricaoProduto, idTipoProduto, valorEntrada, valorSaida, numeroSerie, tipos } = this.state;
   
       if (!isOpen) {
         return null;
@@ -35,6 +36,7 @@ class ModalCadastro extends Component {
         <div className="modal-overlay">
           <div className="modal-content">
             <h2>Cadastrar Novo Produto</h2>
+            <label>Nome do produto</label>
             <input
               type="text"
               name="nomeProduto"
@@ -42,6 +44,7 @@ class ModalCadastro extends Component {
               onChange={this.handleChange}
               placeholder="Nome do produto"
             />
+            <label>Descrição do produto</label>
             <input
               type="text"
               name="descricaoProduto"
@@ -49,19 +52,21 @@ class ModalCadastro extends Component {
               onChange={this.handleChange}
               placeholder="Descrição do produto"
             />
+            <label>Tipo de produto</label>
             <select
                 name="idTipoProduto"
                 value={idTipoProduto}
                 onChange={this.handleChange}
-            >
+                >
                 <option value="">Selecione o tipo</option>
-                {this.props.tipoProduto.map((tipo) => (
+                {this.props.tipoProduto.map((tipo) => (  // Use 'tipos' aqui
                     <option key={tipo.idTipoProduto} value={tipo.idTipoProduto}>
-                        {tipo.nomeTipoProduto}
+                    {tipo.nomeTipoProduto}
                     </option>
                 ))}
-            </select>
+                </select>
             <button onClick={this.props.onGerenciarTipos}>Gerenciar Tipos</button>
+            <label>Valor de Entrada</label>
             <input
               type="number"
               name="valorEntrada"
@@ -69,6 +74,7 @@ class ModalCadastro extends Component {
               onChange={this.handleChange}
               placeholder="Valor de Entrada"
             />
+            <label>Valor de Saída</label>
             <input
               type="number"
               name="valorSaida"
@@ -76,6 +82,7 @@ class ModalCadastro extends Component {
               onChange={this.handleChange}
               placeholder="Valor de Saída"
             />
+            <label>Número de série do produto</label>
             <input
               type="text"
               name="numeroSerie"
@@ -92,7 +99,6 @@ class ModalCadastro extends Component {
       );
     }
 }
-
 class ModalGerenciarTipos extends Component {
     state = {
         tipos: [],
@@ -105,10 +111,29 @@ class ModalGerenciarTipos extends Component {
     }
 
     buscarTipos = () => {
-        fetch("http://localhost:5000/tipoprodutos")
-            .then((response) => response.json())
-            .then((data) => this.setState({ tipos: data }))
-            .catch((error) => console.error("Erro ao buscar tipos:", error));
+        const authToken = 'ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW';
+        fetch('https://quiet-carefully-elk.ngrok-free.app/tipoprodutos', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${authToken}`,
+                'ngrok-skip-browser-warning': 1
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();  // Converte a resposta para JSON
+            } else {
+                throw new Error('Erro ao obter dados');
+            }
+        })
+        .then(data => {
+            console.log('tipos recebidos no modal de gerenciamento:', data);
+            this.setState({ tipos: data });
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
     };
 
     handleChange = (e) => {
@@ -210,6 +235,7 @@ export default class ConEstoque extends Component {
 
     componentDidMount() {
         this.buscarProdutos();
+        this.buscarTipos();
     }
 
     buscarProdutos = () => {
@@ -224,7 +250,6 @@ export default class ConEstoque extends Component {
         })
         .then(response => {
             if (response.ok) {
-                console.log(response);
                 return response.json();  // Converte a resposta para JSON
             } else {
                 throw new Error('Erro ao obter dados');
@@ -232,6 +257,7 @@ export default class ConEstoque extends Component {
         })
         .then(data => {
             console.log('Produtos recebidos:', data);
+            this.setState({ produtos: data.produtos });
         })
         .catch(error => {
             console.error('Erro:', error);
@@ -239,10 +265,29 @@ export default class ConEstoque extends Component {
     };
 
     buscarTipos = () => {
-        fetch("http://localhost:5000/tipoprodutos")
-            .then((response) => response.json())
-            .then((data) => this.setState({ tipoProduto: data }))
-            .catch((error) => console.error("Erro ao buscar tipos:", error));
+        const authToken = 'ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW';
+        fetch('https://quiet-carefully-elk.ngrok-free.app/tipoprodutos', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${authToken}`,
+                'ngrok-skip-browser-warning': 1
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();  // Converte a resposta para JSON
+            } else {
+                throw new Error('Erro ao obter dados');
+            }
+        })
+        .then(data => {
+            console.log('tipos recebidos:', data);
+            this.setState({ tipos: data });
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
     };
 
     abrirModal = (produto) => {
@@ -265,6 +310,7 @@ export default class ConEstoque extends Component {
     };
 
     atualizarProduto = (event) => {
+        this.buscarTipos();
         event.preventDefault();
         const { produtoSelecionado } = this.state;
 
@@ -427,18 +473,33 @@ export default class ConEstoque extends Component {
                                 }
                             />
                             <label>Tipo</label>
-                            <input
-                                type="number"
-                                value={produtoSelecionado.idTipoProduto}
+                            <select
+                                name="idTipoProduto"
+                                value={produtoSelecionado.idTipoProduto }
                                 onChange={(e) =>
                                     this.setState({
-                                        produtoSelecionado: {
-                                            ...produtoSelecionado,
-                                            idTipoProduto: e.target.value
-                                        }
+                                    produtoSelecionado: {
+                                        ...produtoSelecionado,
+                                        idTipoProduto: e.target.value,
+                                    },
                                     })
                                 }
-                            />
+                                >
+                                <option value="">Selecione o tipo</option>
+                                {Array.isArray(this.state.tipos) &&
+                                    this.state.tipos.map((tipo) => (
+                                    <option key={tipo.idTipoProduto} value={tipo.idTipoProduto}>
+                                        {tipo.nomeTipoProduto}
+                                    </option>
+                                    ))}
+                                </select>
+                                <button
+                                type="button"
+                                onClick={this.onGerenciarTipos}
+                                className="gerenciar-tipos"
+                                >
+                                Gerenciar Tipos
+                                </button>
                             <label>Valor de Entrada</label>
                             <input
                                 type="number"
@@ -475,12 +536,13 @@ export default class ConEstoque extends Component {
           isOpen={isCadastroOpen}
           onClose={this.fecharCadastro}
           onSave={this.cadastrarProduto}
-          tipoProduto={this.state.tipoProduto}
+          tipoProduto={this.state.tipos}
           onGerenciarTipos={this.onGerenciarTipos}
         />
 
         <ModalGerenciarTipos 
-            isOpen={this.state.isTipoModalOpen} 
+            isOpen={this.state.isTipoModalOpen}
+            onSave={this.adicionarTipo}
             onClose={this.fecharGerenciarTipos} 
         />
         </div>
