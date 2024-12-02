@@ -214,7 +214,7 @@ export default class ConEstoque extends Component {
 
     buscarProdutos = () => {
         const authToken = 'ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW';
-        fetch('https://c5fc-2804-2b40-205-d001-1cbb-6d6e-66c0-809c.ngrok-free.app/produtos', {
+        fetch('https://quiet-carefully-elk.ngrok-free.app/produtos', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
