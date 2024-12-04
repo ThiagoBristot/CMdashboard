@@ -1,0 +1,455 @@
+.saida-estoque {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.saida-estoque-header {
+    width: 100%;
+    background: linear-gradient(90deg, #3c4246, #212325, #1a1a1d);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+}
+
+.saida-estoque-header h2 {
+    font-size: 24px;
+}
+
+.saida-estoque-ns-btn {
+    background-color: transparent;
+    border: 0;
+    width: fit-content;
+    height: auto;
+}
+
+.saida-estoque-ns-btn svg, .saida-estoque-ns-btn svg path {
+    width: 3em;
+    height: auto;
+    color: rgb(111, 111, 111);
+    cursor: pointer;
+}
+
+.saida-estoque-ns-btn svg path:hover {
+    color: #343434;
+}
+
+.saida-estoque-addnew-div {
+    display: flex;
+    margin-left: 2em;
+    justify-content: start;
+    align-items: center;
+}
+
+.saida-estoque-btns-div {
+    display: grid;
+    grid-template-columns: repeat(2, 10vw);
+    width: 100%;
+    gap: 10px;
+    justify-content: start;
+    align-items: center;
+    margin-left: 2em;
+}
+
+.saida-estoque-filter-btn {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #3c4043;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 16px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+}
+  
+.saida-estoque-filter-btn:hover {
+    background: #F6F9FE;
+    color: #174ea6;
+}
+  
+.saida-estoque-filter-btn:active {
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+    outline: none;
+}
+  
+.saida-estoque-filter-btn:focus {
+    outline: none;
+    border: 2px solid #4285f4;
+}
+  
+.saida-estoque-filter-btn:not(:disabled) {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+  
+.saida-estoque-filter-btn:not(:disabled):hover {
+    box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+}
+  
+.saida-estoque-filter-btn:not(:disabled):focus {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+  
+.saida-estoque-filter-btn:not(:disabled):active {
+    box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+}
+  
+.saida-estoque-filter-btn:disabled {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.saida-estoque-input-div {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    width: 100%;
+    gap: 5%;
+    margin-left: 2em;
+}
+
+.saida-estoque-input-btn-div {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.saida-estoque-input-div input {
+    width: 55%;
+    margin-right: 4%;
+}
+
+
+.saida-estoque-filtros input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.saida-estoque-filtros input::placeholder {
+    color: #515151; 
+}
+
+/* Colunas para os títulos */
+.saida-estoque-div-colunas {
+    display: grid;
+    width: 100%;
+    background: linear-gradient(90deg, #31363a, #1d1f21, #070708);
+    color: #ffff; 
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 1vh;
+}
+
+.saida-estoque-div-colunas,
+.saida-estoque-div-produtos ul li {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.saida-estoque-div-colunas span,
+.saida-estoque-div-produtos li span {
+    text-align: center;
+    padding: 5px;
+}
+
+/* Estilo para os produtos */
+.saida-estoque-div-produtos {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.saida-estoque-div-produtos ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.saida-estoque-div-produtos li {
+    width: 100%;
+    padding: 8px;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #dcdcdc;
+    gap: 15px;
+}
+
+.saida-estoque-div-produtos li:hover {
+    background-color: #e0f7fa;
+    cursor: pointer;
+}
+
+.saida-estoque-div-produtos li span {
+    flex: 1;
+    text-align: center;
+    color: black;
+}
+
+.saida-estoque-div-produtos li svg {
+    margin: 5px;
+}
+
+.saida-estoque-div-produtos svg:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+
+}
+
+.saida-novavenda-div-produtoselecionado {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    align-items: center;
+    text-align: center;
+}
+
+
+.saida-estoque-edit:hover {
+    color: rgb(39, 143, 178);
+}
+
+.saida-estoque-delete:hover {
+    color: red;
+}
+
+.novavenda-select-cliente {
+    border-radius: 15px;
+    width: 60%;
+    height: auto;
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+    max-width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Estilos para o modal Gerenciar Tipos */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: center;
+}
+
+.modal-content h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    margin: 10px 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilos Gerais para o Modal */
+.modal-produtos-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-produtos {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Animação de Fade-In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Título do Modal */
+.modal-produtos-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Tabela de Produtos */
+.modal-produtos-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.modal-produtos-th,
+.modal-produtos-td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-produtos-th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Botão de Fechar */
+.modal-produtos-btn-fechar {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.modal-produtos-btn-fechar:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para o link "Ver produtos" */
+.produto-item-link {
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.produto-item-link:hover {
+    color: rgb(19, 149, 255);
+}
+
+/* Responsividade para dispositivos menores */
+@media (max-width: 768px) {
+    .modal-produtos {
+        width: 90%;
+    }
+
+    .modal-produtos-title {
+        font-size: 1.2rem;
+    }
+
+    .modal-produtos-table {
+        font-size: 0.9rem;
+    }
+}

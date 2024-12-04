@@ -18,7 +18,6 @@ type State = {
     isOpen: boolean;
     isClientOpen: boolean;
     isFinanceOpen: boolean;
-    isOrdersOpen: boolean;
     isStockOpen: boolean;
     isModalGerenciarTiposOpen: boolean;
 };
@@ -131,22 +130,20 @@ export default class SideBar extends Component<{}, State> {
             isOpen: false,
             isClientOpen: false,
             isFinanceOpen: false,
-            isOrdersOpen: false,
             isStockOpen: false,
         };
     }
 
     toggleSidebar = (): void => {
-        const { isOpen, isClientOpen, isFinanceOpen, isOrdersOpen, isModalGerenciarTiposOpen, isStockOpen } = this.state;
+        const { isOpen, isClientOpen, isFinanceOpen, isModalGerenciarTiposOpen, isStockOpen } = this.state;
     
         if (
             isOpen &&
-            (isClientOpen || isFinanceOpen || isOrdersOpen || isStockOpen)
+            (isClientOpen || isFinanceOpen  || isStockOpen)
         ) {
             this.setState({
                 isClientOpen: false,
                 isFinanceOpen: false,
-                isOrdersOpen: false,
                 isStockOpen: false,
                 isModalGerenciarTiposOpen: false,
             });
@@ -166,12 +163,6 @@ export default class SideBar extends Component<{}, State> {
         if (this.state.isOpen) {
             this.setState(prevState => ({ isFinanceOpen: !prevState.isFinanceOpen }));
         } 
-    }
-
-    toggleOrdersList = (): void => {
-        if (this.state.isOpen) {
-            this.setState(prevState => ({ isOrdersOpen: !prevState.isOrdersOpen }));
-        }
     }
 
     toggleStockList = (): void => {
@@ -233,18 +224,6 @@ export default class SideBar extends Component<{}, State> {
                                 <strong>
                                     <div onClick={() => this.props.onComponentSelect("PaymentControl")}>Controle de entradas/saídas</div>
                                     <div onClick={() => this.props.onComponentSelect("FinanceReports")}>Relatórios Financeiros</div>
-                                </strong>
-                            </div>
-                        )}
-
-                        <li onClick={this.toggleOrdersList}>
-                            <FaBasketShopping /> {isOpen ? "Pedidos" : ""}
-                        </li>
-                        {isOrdersOpen && (
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }} className="sidebar-orders-div">
-                                <strong>
-                                    <div>Gestão de Pedidos</div>
-                                    <div>Histórico de Pedidos</div>
                                 </strong>
                             </div>
                         )}
