@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import "./sidebar.css";
 
-//programas
-import ManCliente from "../clientes/manutencao de clientes/Manclientes";
-
 //icones
 import { CgClose } from "react-icons/cg";
 import { FiMenu } from "react-icons/fi";
 import { FaPerson } from "react-icons/fa6";
 import { CiDollar } from "react-icons/ci";
-import { FaBasketShopping } from "react-icons/fa6";
+import { CiInboxIn, CiInboxOut  } from "react-icons/ci";
 import { BiPackage } from "react-icons/bi";
 import { MdEdit } from "react-icons/md";
 import { FaRegNewspaper } from "react-icons/fa";
+import { TbZoomMoney } from "react-icons/tb";
+import { CgArrowTopRightO } from "react-icons/cg";
+
 
 type State = {
     isOpen: boolean;
@@ -26,6 +26,7 @@ class ModalGerenciarTipos extends Component {
     state = {
         tipos: [],
         novoTipo: "",
+        novoTipoDesc: "",
         tipoSelecionado: null,
     };
 
@@ -34,34 +35,81 @@ class ModalGerenciarTipos extends Component {
     }
 
     buscarTipos = () => {
-        fetch("http://localhost:5000/tipoprodutos")
-            .then((response) => response.json())
-            .then((data) => this.setState({ tipos: data }))
-            .catch((error) => console.error("Erro ao buscar tipos:", error));
+        const authToken = 'ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW';
+        fetch('https://quiet-carefully-elk.ngrok-free.app/tipoprodutos', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${authToken}`,
+                'ngrok-skip-browser-warning': 1
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();  // Converte a resposta para JSON
+            } else {
+                throw new Error('Erro ao obter dados');
+            }
+        })
+        .then(data => {
+            console.log('tipos recebidos no modal de gerenciamento:', data);
+            this.setState({ tipos: data });
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
     };
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-    adicionarTipo = () => {
-        fetch("http://localhost:5000/tipoprodutos", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nomeTipoProduto: this.state.novoTipo }),
-        })
-            .then(() => {
-                this.setState({ novoTipo: "" });
-                this.buscarTipos();
-            })
-            .catch((error) => console.error("Erro ao adicionar tipo:", error));
+    handleChangeDesc = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
     };
 
+    adicionarTipo = () => {
+        console.log('Dados para adicionar tipo:', {
+            nomeTipoProduto: this.state.novoTipo, 
+            descricaoTipoProduto: this.state.novoTipoDesc 
+        });
+    
+        fetch("http://localhost:5000/tipoprodutos", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({ 
+                nomeTipoProduto: this.state.novoTipo, 
+                descricaoTipoProduto: this.state.novoTipoDesc 
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text);
+                });
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log('Resposta do servidor ao adicionar tipo:', data);
+            this.setState({ novoTipo: "", novoTipoDesc: "" });
+            this.buscarTipos();
+        })
+        .catch((error) => {
+            console.error("Erro ao adicionar tipo:", error);
+        });
+    };
+    
     editarTipo = (tipo) => {
         fetch(`http://localhost:5000/tipoprodutos/${tipo.idTipoProduto}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nomeTipoProduto: tipo.nomeTipoProduto }),
+            body: JSON.stringify({ 
+                nomeTipoProduto: tipo.nomeTipoProduto, 
+                descricaoTipoProduto: tipo.descricaoTipoProduto 
+            }),
         })
             .then(() => this.buscarTipos())
             .catch((error) => console.error("Erro ao editar tipo:", error));
@@ -77,7 +125,7 @@ class ModalGerenciarTipos extends Component {
 
     render() {
         const { isOpen, onClose } = this.props;
-        const { tipos, novoTipo } = this.state;
+        const { tipos, novoTipo, novoTipoDesc } = this.state;
 
         if (!isOpen) return null;
 
@@ -92,10 +140,17 @@ class ModalGerenciarTipos extends Component {
                         onChange={this.handleChange}
                         placeholder="Novo tipo"
                     />
+                    <input
+                        type="text" 
+                        name="novoTipoDesc"
+                        value={this.state.novoTipoDesc}
+                        onChange={this.handleChangeDesc}
+                        placeholder="Descrição do novo tipo"
+                    />
                     <button className='gerenciartipos-btn-adicionar' onClick={this.adicionarTipo}>Adicionar</button>
-                    <ul>
+                    <ul style={{width: "90%"}}>
                         {tipos.map((tipo) => (
-                            <li key={tipo.idTipoProduto}>
+                            <li key={tipo.idTipoProduto} style={{display: "flex", flexDirection: "column", width: "90%", justifyContent: "center", alignItems: "center"}}>
                                 <input
                                     type="text"
                                     value={tipo.nomeTipoProduto}
@@ -108,6 +163,21 @@ class ModalGerenciarTipos extends Component {
                                             ),
                                         })
                                     }
+                                    placeholder="Nome do Tipo"
+                                />
+                                <input
+                                    type="text"
+                                    value={tipo.descricaoTipoProduto}
+                                    onChange={(e) =>
+                                        this.setState({
+                                            tipos: tipos.map((t) =>
+                                                t.idTipoProduto === tipo.idTipoProduto
+                                                    ? { ...t, descricaoTipoProduto: e.target.value }
+                                                    : t
+                                            ),
+                                        })
+                                    }
+                                    placeholder="Descrição do Tipo"
                                 />
                                 <button className='gerenciartipos-btn-salvar' onClick={() => this.editarTipo(tipo)}>Salvar</button>
                                 <button className='gerenciartipos-btn-excluir' onClick={() => this.excluirTipo(tipo.idTipoProduto)}>
@@ -122,7 +192,6 @@ class ModalGerenciarTipos extends Component {
         );
     }
 }
-
 export default class SideBar extends Component<{}, State> {
     constructor(props: {}) {
         super(props);
@@ -181,17 +250,6 @@ export default class SideBar extends Component<{}, State> {
     setActiveComponent = (componentName: string): void => {
         this.setState({ activeComponent: componentName });
     }
-    
-    renderComponent = (): JSX.Element | null => {
-        const { activeComponent } = this.state;
-
-        switch (activeComponent) {
-            case "ClientMaintenance":
-                return <ManCliente />;  // Componente para "Manutenção de Clientes"
-            default:
-                return null;  // Nenhuma tela ativa
-        }
-    }
 
     render() {
         const { isOpen, isClientOpen, isFinanceOpen, isOrdersOpen, isStockOpen, isModalGerenciarTiposOpen } = this.state;
@@ -210,8 +268,8 @@ export default class SideBar extends Component<{}, State> {
                         {isClientOpen && (
                             <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }} className="sidebar-client-div">
                                 <strong>
-                                    <div onClick={() => this.props.onComponentSelect("ClientMaintenance")}><MdEdit style={{marginRight: "0.5vw"}}/>Manutenção de Clientes</div>
-                                    <div onClick={() => this.props.onComponentSelect("ClientConsultation")}><FaRegNewspaper style={{marginRight: "0.5vw"}}/>Consulta de Clientes</div>
+                                    <div onClick={() => this.props.onComponentSelect("ClientMaintenance")} style={{gap: "1rem"}}><MdEdit style={{width: "2rem", height: "auto"}}/>Manutenção de Clientes</div>
+                                    <div onClick={() => this.props.onComponentSelect("ClientConsultation")} style={{gap: "1rem"}}><FaRegNewspaper style={{width: "2rem", height: "auto"}}/>Consulta de Clientes</div>
                                 </strong>       
                             </div>
                         )}
@@ -222,8 +280,7 @@ export default class SideBar extends Component<{}, State> {
                         {isFinanceOpen && (
                             <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }} className="sidebar-finance-div">
                                 <strong>
-                                    <div onClick={() => this.props.onComponentSelect("PaymentControl")}>Controle de entradas/saídas</div>
-                                    <div onClick={() => this.props.onComponentSelect("FinanceReports")}>Relatórios Financeiros</div>
+                                 <div onClick={() => this.props.onComponentSelect("FinanceReports")} style={{gap: "1rem"}}><TbZoomMoney style={{width: "2rem", height: "auto"}}/> Relatórios Financeiros</div>
                                 </strong>
                             </div>
                         )}
@@ -234,10 +291,10 @@ export default class SideBar extends Component<{}, State> {
                         {isStockOpen && (
                             <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }} className="sidebar-stock-div">
                                 <strong>
-                                    <div onClick={() => this.props.onComponentSelect("EstoqueControle")}>Controle de Estoque</div>
-                                    <div onClick={() => this.props.onComponentSelect("EstoqueSaida")}>Saída de Itens</div>
+                                    <div onClick={() => this.props.onComponentSelect("EstoqueControle")} style={{gap: "1rem"}}><CiInboxIn style={{width: "2rem", height: "auto"}}/> Entrada de itens</div>
+                                    <div onClick={() => this.props.onComponentSelect("EstoqueSaida")} style={{gap: "1rem"}}> <CiInboxOut style={{width: "2rem", height: "auto"}}/> Saída de itens</div>
                                     <div
-                                         onClick={this.toggleModalGerenciarTipos}>Gerenciar Tipos de Produtos
+                                         onClick={this.toggleModalGerenciarTipos} style={{gap: "1rem"}}><CgArrowTopRightO style={{width: "2rem", height: "auto"}}/> Gerenciar Tipos de Produtos
                                     </div>
                                 </strong>
                             </div>
@@ -251,11 +308,6 @@ export default class SideBar extends Component<{}, State> {
                     isOpen={isModalGerenciarTiposOpen}
                     onClose={this.toggleModalGerenciarTipos}  // Passando a função para fechar o modal
                 />
-
-                {/* Renderiza o componente ativo */}
-                <div className="active-component-container">
-                    {this.renderComponent()}
-                </div>
             </div>
         );
     }

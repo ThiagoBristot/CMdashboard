@@ -293,13 +293,13 @@ export default class ManCliente extends Component {
                 <IoMdPersonAdd />
               </button>
             </div>
-            <h4 style={{ marginRight: "auto" }}>Filtrar por:</h4>
+            {/*<h4 style={{ marginRight: "auto" }}>Filtrar por:</h4>
             <div className="manclientes-btns-div">
               <button className="manclientes-filter-btn">Cadastro mais recente</button>
               <button className="manclientes-filter-btn">Cadastro mais antigo</button>
               <button className="manclientes-filter-btn">Pedido mais recente</button>
               <button className="manclientes-filter-btn">Pedido mais antigo</button>
-            </div>
+            </div>*/}
           </section>
           <div className="manclientes-input-div">
             <p>Digite o nome ou número de telefone do cadastro desejado:</p>

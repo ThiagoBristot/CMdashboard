@@ -26,7 +26,7 @@ export default class Header extends Component<HeaderProps> {
 
         return (
             <section className="header">
-                <div className="header-logo-title" onClick={onTitleClick}> {/* Adicionando o onClick ao título */}
+                <div className="header-logo-title" onClick={onTitleClick}> 
                     <img src={Logo} alt="logo" className="logoimg"/>
                     <h1>CM Dashboard</h1>
                 </div>

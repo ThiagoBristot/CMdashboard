@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./conestoque.css";
-import { IoMdPersonAdd } from "react-icons/io";
+import { IoIosAddCircle } from "react-icons/io";
 import { FaPencilAlt } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
@@ -103,6 +103,7 @@ class ModalGerenciarTipos extends Component {
     state = {
         tipos: [],
         novoTipo: "",
+        novoTipoDesc: "",
         tipoSelecionado: null,
     };
 
@@ -140,24 +141,52 @@ class ModalGerenciarTipos extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-    adicionarTipo = () => {
-        fetch("http://localhost:5000/tipoprodutos", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nomeTipoProduto: this.state.novoTipo }),
-        })
-            .then(() => {
-                this.setState({ novoTipo: "" });
-                this.buscarTipos();
-            })
-            .catch((error) => console.error("Erro ao adicionar tipo:", error));
+    handleChangeDesc = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
     };
 
+    adicionarTipo = () => {
+        console.log('Dados para adicionar tipo:', {
+            nomeTipoProduto: this.state.novoTipo, 
+            descricaoTipoProduto: this.state.novoTipoDesc 
+        });
+    
+        fetch("http://localhost:5000/tipoprodutos", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({ 
+                nomeTipoProduto: this.state.novoTipo, 
+                descricaoTipoProduto: this.state.novoTipoDesc 
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text);
+                });
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log('Resposta do servidor ao adicionar tipo:', data);
+            this.setState({ novoTipo: "", novoTipoDesc: "" });
+            this.buscarTipos();
+        })
+        .catch((error) => {
+            console.error("Erro ao adicionar tipo:", error);
+        });
+    };
+    
     editarTipo = (tipo) => {
         fetch(`http://localhost:5000/tipoprodutos/${tipo.idTipoProduto}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nomeTipoProduto: tipo.nomeTipoProduto }),
+            body: JSON.stringify({ 
+                nomeTipoProduto: tipo.nomeTipoProduto, 
+                descricaoTipoProduto: tipo.descricaoTipoProduto 
+            }),
         })
             .then(() => this.buscarTipos())
             .catch((error) => console.error("Erro ao editar tipo:", error));
@@ -173,7 +202,7 @@ class ModalGerenciarTipos extends Component {
 
     render() {
         const { isOpen, onClose } = this.props;
-        const { tipos, novoTipo } = this.state;
+        const { tipos, novoTipo, novoTipoDesc } = this.state;
 
         if (!isOpen) return null;
 
@@ -188,10 +217,17 @@ class ModalGerenciarTipos extends Component {
                         onChange={this.handleChange}
                         placeholder="Novo tipo"
                     />
+                    <input
+                        type="text" 
+                        name="novoTipoDesc"
+                        value={this.state.novoTipoDesc}
+                        onChange={this.handleChangeDesc}
+                        placeholder="Descrição do novo tipo"
+                    />
                     <button className='gerenciartipos-btn-adicionar' onClick={this.adicionarTipo}>Adicionar</button>
-                    <ul>
+                    <ul style={{width: "90%"}}>
                         {tipos.map((tipo) => (
-                            <li key={tipo.idTipoProduto}>
+                            <li key={tipo.idTipoProduto} style={{display: "flex", flexDirection: "column", width: "90%", justifyContent: "center", alignItems: "center"}}>
                                 <input
                                     type="text"
                                     value={tipo.nomeTipoProduto}
@@ -204,6 +240,21 @@ class ModalGerenciarTipos extends Component {
                                             ),
                                         })
                                     }
+                                    placeholder="Nome do Tipo"
+                                />
+                                <input
+                                    type="text"
+                                    value={tipo.descricaoTipoProduto}
+                                    onChange={(e) =>
+                                        this.setState({
+                                            tipos: tipos.map((t) =>
+                                                t.idTipoProduto === tipo.idTipoProduto
+                                                    ? { ...t, descricaoTipoProduto: e.target.value }
+                                                    : t
+                                            ),
+                                        })
+                                    }
+                                    placeholder="Descrição do Tipo"
                                 />
                                 <button className='gerenciartipos-btn-salvar' onClick={() => this.editarTipo(tipo)}>Salvar</button>
                                 <button className='gerenciartipos-btn-excluir' onClick={() => this.excluirTipo(tipo.idTipoProduto)}>
@@ -379,22 +430,22 @@ export default class ConEstoque extends Component {
 
         return (
         <div className="conestoque">
-            <header className="conestoque-header"><h1>Controle de Estoque</h1></header>
+            <header className="conestoque-header"><h1>Entrada de itens</h1></header>
             <section className="conestoque-section">
                 <div className="conestoque-addnew-div">
                     <h4>Novo produto:</h4>
                     <button className="conestoque-addnew-btn" onClick={this.abrirCadastro}>
-                        <IoMdPersonAdd />
+                        <IoIosAddCircle />
                     </button>
                 </div>
 
-                <h4 style={{ marginRight: "auto" }}>Filtrar por:</h4>
+{/*                <h4 style={{ marginRight: "auto" }}>Filtrar por:</h4>
                 <div className="conestoque-btns-div">
                     <button className="conestoque-filter-btn">Cadastro mais recente</button>
                     <button className="conestoque-filter-btn">Cadastro mais antigo</button>
                     <button className="conestoque-filter-btn">Pedido mais recente</button>
                     <button className="conestoque-filter-btn">Pedido mais antigo</button>
-                </div>
+                </div>*/}
                 <div className="conestoque-input-div">
                     <p>Digite o nome do produto desejado:</p>
                     <div className="conestoque-input-btn-div">

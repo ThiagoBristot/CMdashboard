@@ -86,10 +86,10 @@ class ModalNovaVenda extends Component {
                     value={quantidadeAtual}
                     onChange={onQuantidadeChange}
                 />
-                <button onClick={onAdicionarProduto}>Adicionar Produto</button>
-                <div>
+                <button onClick={onAdicionarProduto} className="saida-novavenda-adcproduto-btn">Adicionar Produto</button>
+                <div className="saida-novavenda-div-boxprodutos">
                     <h4>Produtos Selecionados</h4>
-                    <ul>
+                    <ul className="saida-novavenda-ul-produtoselecionado">
                         {produtosVenda.map((item, index) => (
                             <li key={index}>
                                 <div className="saida-novavenda-div-produtoselecionado">
@@ -111,7 +111,7 @@ class ModalNovaVenda extends Component {
                     value={dataVenda}
                     onChange={onDataChange}
                 />
-                <button onClick={onRegistrarVenda}>Registrar Venda</button>
+                <button onClick={onRegistrarVenda} className="saida-novavenda-regvenda-btn">Registrar Venda</button>
             </Modal>
         );
     }
@@ -562,13 +562,13 @@ export default class SaidaEstoque extends Component {
                         </button>
                     </div>
 
-                    <h4 style={{ marginRight: "auto", width: "fit-content", marginLeft: "2em" }}>Filtrar por:</h4>
+{/*                    <h4 style={{ marginRight: "auto", width: "fit-content", marginLeft: "2em" }}>Filtrar por:</h4>
                     <div className="saida-estoque-btns-div">
                         <button className="saida-estoque-filter-btn">Cadastro mais recente</button>
                         <button className="saida-estoque-filter-btn">Cadastro mais antigo</button>
                         <button className="saida-estoque-filter-btn">Saída mais recente</button>
                         <button className="saida-estoque-filter-btn">Saída mais antiga</button>
-                    </div>
+                    </div>*/}
                     <div className="saida-estoque-input-div">
                         <p>Digite o ID da venda desejada:</p>
                         <div className="saida-estoque-input-btn-div">
@@ -606,6 +606,12 @@ export default class SaidaEstoque extends Component {
                                     {this.state.produtosModalAberto && (
                                         <div className="modal-produtos-overlay">
                                             <div className="modal-produtos">
+                                                <button
+                                                    onClick={this.fecharModalProdutos}
+                                                    className="modal-produtos-btn-fechar"
+                                                >
+                                                    X
+                                                </button>
                                                 <h2 className="modal-produtos-title">Produtos da Venda</h2>
                                                 <table className="modal-produtos-table">
                                                     <thead>
@@ -627,12 +633,6 @@ export default class SaidaEstoque extends Component {
                                                         ))}
                                                     </tbody>
                                                 </table>
-                                                <button
-                                                    onClick={this.fecharModalProdutos}
-                                                    className="modal-produtos-btn-fechar"
-                                                >
-                                                    Fechar
-                                                </button>
                                             </div>
                                         </div>
                                     )}

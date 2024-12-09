@@ -151,13 +151,17 @@ app.get("/tipoprodutos", (req, res) => {
 
 // Rota para adicionar um tipo de produto
 app.post("/tipoprodutos", (req, res) => {
-    const { nomeTipoProduto } = req.body;
-    const query = "INSERT INTO tipoproduto (nomeTipoProduto) VALUES (?)";
-    db.query(query, [nomeTipoProduto], (err, result) => {
+    const { nomeTipoProduto, descricaoTipoProduto } = req.body;
+    const query = "INSERT INTO tipoproduto (nomeTipoProduto, descricaoTipoProduto) VALUES (?, ?)";
+    db.query(query, [nomeTipoProduto, descricaoTipoProduto], (err, result) => {
         if (err) {
-            res.status(500).send("Erro ao adicionar tipo de produto");
+            console.error("Erro ao adicionar tipo de produto:", err);
+            res.status(500).json({ error: "Erro ao adicionar tipo de produto", details: err.message });
         } else {
-            res.status(201).send("Tipo de produto adicionado com sucesso");
+            res.status(201).json({ 
+                message: "Tipo de produto adicionado com sucesso", 
+                id: result.insertId 
+            });
         }
     });
 });
@@ -165,9 +169,9 @@ app.post("/tipoprodutos", (req, res) => {
 // Rota para editar um tipo de produto
 app.put("/tipoprodutos/:id", (req, res) => {
     const { id } = req.params;
-    const { nomeTipoProduto } = req.body;
-    const query = "UPDATE tipoproduto SET nomeTipoProduto = ? WHERE idTipoProduto = ?";
-    db.query(query, [nomeTipoProduto, id], (err, result) => {
+    const { nomeTipoProduto, descricaoTipoProduto } = req.body;
+    const query = "UPDATE tipoproduto SET nomeTipoProduto = ?, descricaoTipoProduto = ? WHERE idTipoProduto = ?";
+    db.query(query, [nomeTipoProduto, descricaoTipoProduto, id], (err, result) => {
         if (err) {
             res.status(500).send("Erro ao editar tipo de produto");
         } else {

@@ -256,12 +256,46 @@
 }
 
 .novavenda-select-cliente {
-    border-radius: 15px;
-    width: 60%;
-    height: auto;
-    max-height: 30vh;
-    overflow-y: auto;
-}
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .novavenda-select-cliente:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+  }
+  
+  /* Style for the dropdown options */
+  datalist option {
+    background-color: white;
+    color: #333;
+    padding: 5px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .novavenda-select-cliente {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+  
+  /* Additional hover effect */
+  .novavenda-select-cliente:hover {
+    border-color: #999;
+  }
+  
+  /* Placeholder text styling */
+  .novavenda-select-cliente::placeholder {
+    color: #999;
+    font-style: italic;
+  }
 
 .modal {
     position: fixed;
@@ -273,6 +307,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    max-height: 90vh;
 }
 
 .modal-content {
@@ -286,14 +321,33 @@
     align-items: center;
     flex-direction: column;
     gap: 15px;
+    max-height: 90%;
 }
 
-.close {
+.modal-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 5px;
+    right: 5px;
     cursor: pointer;
+    background-color: rgb(247, 82, 82);
+    color: white;
     font-size: 20px;
+}
+
+.modal-close:hover {
+    background-color: rgb(241, 40, 40);
+
+}
+
+.saida-novavenda-div-boxprodutos {
+    width: 100%;
+    height: auto;
+    max-height: 20vh;
+    overflow-y: auto;
+}
+
+.saida-novavenda-ul-produtoselecionado {
+    width: 100%;
 }
 
 /* Estilos para o modal Gerenciar Tipos */
@@ -329,7 +383,28 @@
 }
 
 .modal-content input[type="text"] {
-    width: 100%;
+    width: 60%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+.modal-content input[type="number"] {
+    width: 40%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-content input[type="date"] {
+    width: 30%;
     padding: 10px;
     margin: 10px 0;
     font-size: 1rem;
@@ -346,6 +421,22 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.saida-novavenda-adcproduto-btn {
+    background-color: rgb(102, 185, 229);
+}
+
+.saida-novavenda-adcproduto-btn:hover {
+    background-color: rgb(79, 145, 181);
+}
+
+.saida-novavenda-regvenda-btn {
+    background-color: rgb(71, 224, 74);
+}
+
+.saida-novavenda-regvenda-btn:hover {
+    background-color: rgb(55, 178, 57);
 }
 
 /* Estilos Gerais para o Modal */
@@ -370,6 +461,7 @@
     max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s ease-out;
+    position: relative;
 }
 
 /* Animação de Fade-In */
@@ -413,18 +505,20 @@
 
 /* Botão de Fechar */
 .modal-produtos-btn-fechar {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    border: 0;
+    border-radius: 20px;
+    background-color: rgb(247, 82, 82);
+    color: white;
+    font-size: 20px;
     transition: background-color 0.3s ease;
 }
 
 .modal-produtos-btn-fechar:hover {
-    background-color: #0056b3;
+    background-color: rgb(193, 63, 63);
 }
 
 /* Estilo para o link "Ver produtos" */

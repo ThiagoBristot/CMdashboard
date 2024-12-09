@@ -42,10 +42,12 @@
 
 .conclientes-nav {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 100%;
     margin: 20px 0;
+    gap: 2rem;
     background-color: white;
     border-radius: 15px;
 }

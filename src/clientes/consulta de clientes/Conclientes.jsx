@@ -36,12 +36,13 @@ export default class ConClientes extends Component {
             <div className="conclientes">
                 <header className="conclientes-header"><h1 className="conclientes-titulo">Consulta de Clientes</h1></header>
                 <nav className="conclientes-nav">
-                    <ul className="conclientes-nav-ul">
+                    {/*<ul className="conclientes-nav-ul">
                         <li className="conclientes-filter-btn">filtros</li>
                         <li className="conclientes-filter-btn">filtros</li>
                         <li className="conclientes-filter-btn">filtros</li>
                         <li className="conclientes-filter-btn">filtros</li>
-                    </ul>
+                    </ul>*/}
+                    <label>Digite o nome do cliente desejado</label>
                     <input
                         type="text"
                         placeholder="digite aqui"

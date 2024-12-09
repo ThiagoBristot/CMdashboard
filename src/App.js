@@ -7,6 +7,7 @@ import Home from "./home/Home";
 import ConClientes from './clientes/consulta de clientes/Conclientes';
 import ConEstoque from './estoque/controle de estoque/Conestoque';
 import SaidaEstoque from './estoque/saida de estoque/Saidaestoque';
+import Relatoriosfinanceiros from "./financeiro/relatorios financeiros/Relatoriosfinanceiros";
 
 type State = {
   activeComponent: string | null;
@@ -38,7 +39,10 @@ export default class App extends Component<{}, State> {
         return <ConEstoque/>; // Componente para "Controle de Estoque"
       case "EstoqueSaida":
         return <SaidaEstoque/>; // Componente para "Saida no Estoque"
-      //HOME - default
+      //FINANCEIRO
+      case "FinanceReports":
+        return <Relatoriosfinanceiros/>
+        //HOME - default
         default:
         return <Home />;  // Componente padrão
     }

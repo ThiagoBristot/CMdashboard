@@ -46,18 +46,26 @@
 }
 
 .conestoque-addnew-btn {
-    background-color: #d6d6d6ba; 
+    background-color: transparent;
     color: #000000; 
     border: none;
     padding: 10px 10px;
     border-radius: 15px;
     width: fit-content;
+    height: auto;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.conestoque-addnew-btn:hover {
-    background-color: #cccccc; 
+.conestoque-addnew-btn svg, .conestoque-addnew-btn svg path {
+    width: 3em;
+    height: auto;
+    color: rgb(111, 111, 111);
+    cursor: pointer;
+}
+
+.conestoque-addnew-btn svg path:hover {
+    color: #343434;
 }
 
 .conestoque-btns-div {
@@ -259,64 +267,43 @@
     color: red;
 }
 
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
-    max-width: 90%;
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-/* Estilos para o modal Gerenciar Tipos */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro */
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .modal-content {
     background-color: #fff;
     border-radius: 8px;
     width: 90%;
-    max-width: 600px;
-    padding: 20px 30px;
+    max-width: 500px;
+    max-height: 80vh; /* Limit height to 80% of viewport height */
+    height: auto;
+    padding: 30px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
     animation: fadeIn 0.3s ease-in-out;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow: auto; /* Allow scrolling if content is too long */
 }
 
 .modal-content h2 {
     font-size: 1.8rem;
     color: #333;
     margin-bottom: 20px;
+    flex-shrink: 0;
 }
 
 .modal-content input[type="text"] {
@@ -337,11 +324,12 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    flex-shrink: 0;
 }
 
-/* Estilos para os botões específicos do Gerenciar Tipos */
+/* Button styles remain the same as in your original CSS */
 .gerenciartipos-btn-adicionar {
-    background-color: #28a745; /* Verde para adicionar */
+    background-color: #28a745;
     color: white;
 }
 
@@ -350,7 +338,7 @@
 }
 
 .gerenciartipos-btn-salvar {
-    background-color: #28a745; /* Amarelo para salvar */
+    background-color: #28a745;
     color: white;
 }
 
@@ -359,7 +347,7 @@
 }
 
 .gerenciartipos-btn-excluir {
-    background-color: #dc3545; /* Vermelho para excluir */
+    background-color: #dc3545;
     color: white;
 }
 
@@ -375,23 +363,26 @@
     overflow-y: auto;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+    flex-grow: 1;
 }
 
-.modal-content ul li {
+.modal-content .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.modal-content form {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    justify-content: center;
+    width: 90%;
 }
 
-.modal-content ul li:last-child {
-    border-bottom: none;
-}
-
-.modal-content ul li input[type="text"] {
-    flex: 1;
-    margin-right: 10px;
+.modal-content form input, .modal-content form select {
+    width: 60%;
+    text-align: center;
 }
 
 @keyframes fadeIn {
