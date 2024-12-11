@@ -200,59 +200,124 @@ export default class SideBar extends Component<{}, State> {
             isClientOpen: false,
             isFinanceOpen: false,
             isStockOpen: false,
+            isModalGerenciarTiposOpen: false,
         };
     }
 
-    toggleSidebar = (): void => {
-        const { isOpen, isClientOpen, isFinanceOpen, isModalGerenciarTiposOpen, isStockOpen } = this.state;
-    
-        if (
-            isOpen &&
-            (isClientOpen || isFinanceOpen  || isStockOpen)
-        ) {
-            this.setState({
+    handleClientListClick = (): void => {
+        this.setState(prevState => {
+            // If sidebar is not open, open it and the client list
+            if (!prevState.isOpen) {
+                return {
+                    isOpen: true,
+                    isClientOpen: true,
+                };
+            }
+            
+            // If sidebar is open and client list is not open, open it
+            if (!prevState.isClientOpen) {
+                return {
+                    ...prevState,
+                    isClientOpen: true,
+                };
+            }
+            
+            // If client list is already open, close it
+            return {
+                ...prevState,
+                isClientOpen: false,
+            };
+        });
+    }
+
+    handleFinanceListClick = (): void => {
+        this.setState(prevState => {
+            // If sidebar is not open, open it and the finance list
+            if (!prevState.isOpen) {
+                return {
+                    isOpen: true,
+                    isFinanceOpen: true,
+                };
+            }
+            
+            // If sidebar is open and finance list is not open, open it
+            if (!prevState.isFinanceOpen) {
+                return {
+                    ...prevState,
+                    isFinanceOpen: true,
+                };
+            }
+            
+            // If finance list is already open, close it
+            return {
+                ...prevState,
+                isFinanceOpen: false,
+            };
+        });
+    }
+
+    handleStockListClick = (): void => {
+        this.setState(prevState => {
+            // If sidebar is not open, open it and the stock list
+            if (!prevState.isOpen) {
+                return {
+                    isOpen: true,
+                    isStockOpen: true,
+                };
+            }
+            
+            // If sidebar is open and stock list is not open, open it
+            if (!prevState.isStockOpen) {
+                return {
+                    ...prevState,
+                    isStockOpen: true,
+                };
+            }
+            
+            // If stock list is already open, close it
+            return {
+                ...prevState,
+                isStockOpen: false,
+            };
+        });
+    }
+
+    toggleModalGerenciarTipos = (): void => {
+        this.setState(prevState => {
+            // If sidebar is not open, open it
+            if (!prevState.isOpen) {
+                return {
+                    isOpen: true,
+                    isModalGerenciarTiposOpen: true,
+                    isClientOpen: false,
+                    isFinanceOpen: false,
+                    isStockOpen: false
+                };
+            }
+            
+            // If sidebar is open, toggle the modal
+            return {
+                ...prevState,
+                isModalGerenciarTiposOpen: !prevState.isModalGerenciarTiposOpen,
                 isClientOpen: false,
                 isFinanceOpen: false,
-                isStockOpen: false,
-                isModalGerenciarTiposOpen: false,
-            });
-        }
-    
-        this.setState(prevState => ({ isOpen: !prevState.isOpen }));
-    }
-    
-
-    toggleClientList = (): void => {
-        if (this.state.isOpen) {
-            this.setState(prevState => ({ isClientOpen: !prevState.isClientOpen }));
-        }
+                isStockOpen: false
+            };
+        });
     }
 
-    toggleFinanceList = (): void => {
-        if (this.state.isOpen) {
-            this.setState(prevState => ({ isFinanceOpen: !prevState.isFinanceOpen }));
-        } 
-    }
-
-    toggleStockList = (): void => {
-        if (this.state.isOpen) {
-            this.setState(prevState => ({ isStockOpen: !prevState.isStockOpen }));
-        }
-    }
-
-    // Função para abrir o modal de gerenciar tipos
-    toggleModalGerenciarTipos = (): void => {
-        this.setState(prevState => ({
-            isModalGerenciarTiposOpen: !prevState.isModalGerenciarTiposOpen,
+    toggleSidebar = (): void => {
+        this.setState(prevState => ({ 
+            isOpen: !prevState.isOpen,
+            isClientOpen: false,
+            isFinanceOpen: false,
+            isStockOpen: false,
+            isModalGerenciarTiposOpen: false
         }));
-    };
-
-    setActiveComponent = (componentName: string): void => {
-        this.setState({ activeComponent: componentName });
     }
 
     render() {
-        const { isOpen, isClientOpen, isFinanceOpen, isOrdersOpen, isStockOpen, isModalGerenciarTiposOpen } = this.state;
+        const { isOpen, isClientOpen, isFinanceOpen, isStockOpen, isModalGerenciarTiposOpen } = this.state;
 
         return (
             <div className='sidebar-div' style={{ width: isOpen ? '13vw' : '6vw' }}>
@@ -262,51 +327,132 @@ export default class SideBar extends Component<{}, State> {
 
                 <div id="sidebar" className="sidebar-links-div">
                     <ul className="sidebar-ul">
-                        <li onClick={this.toggleClientList}>
+                        <li 
+                            onClick={this.handleClientListClick} 
+                            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                        >
                             <FaPerson /> {isOpen ? " Clientes" : ""}
                         </li>
                         {isClientOpen && (
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }} className="sidebar-client-div">
+                            <div style={{ 
+                                display: "flex", 
+                                flexDirection: "column", 
+                                justifyContent: "start", 
+                                alignItems: "start" 
+                            }} className="sidebar-client-div">
                                 <strong>
-                                    <div onClick={() => this.props.onComponentSelect("ClientMaintenance")} style={{gap: "1rem"}}><MdEdit style={{width: "2rem", height: "auto"}}/>Manutenção de Clientes</div>
-                                    <div onClick={() => this.props.onComponentSelect("ClientConsultation")} style={{gap: "1rem"}}><FaRegNewspaper style={{width: "2rem", height: "auto"}}/>Consulta de Clientes</div>
+                                    <div 
+                                        onClick={() => this.props.onComponentSelect("ClientMaintenance")} 
+                                        style={{
+                                            gap: "1rem", 
+                                            cursor: 'pointer', 
+                                            display: 'flex', 
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <MdEdit style={{width: "2rem", height: "auto"}}/> Manutenção de Clientes
+                                    </div>
+                                    <div 
+                                        onClick={() => this.props.onComponentSelect("ClientConsultation")} 
+                                        style={{
+                                            gap: "1rem", 
+                                            cursor: 'pointer', 
+                                            display: 'flex', 
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <FaRegNewspaper style={{width: "2rem", height: "auto"}}/> Consulta de Clientes
+                                    </div>
                                 </strong>       
                             </div>
                         )}
 
-                        <li onClick={this.toggleFinanceList}>
+                        <li 
+                            onClick={this.handleFinanceListClick} 
+                            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                        >
                             <CiDollar /> {isOpen ? " Financeiro" : ""}
                         </li>
                         {isFinanceOpen && (
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }} className="sidebar-finance-div">
+                            <div style={{ 
+                                display: "flex", 
+                                flexDirection: "column", 
+                                justifyContent: "start", 
+                                alignItems: "start" 
+                            }} className="sidebar-finance-div">
                                 <strong>
-                                 <div onClick={() => this.props.onComponentSelect("FinanceReports")} style={{gap: "1rem"}}><TbZoomMoney style={{width: "2rem", height: "auto"}}/> Relatórios Financeiros</div>
-                                </strong>
-                            </div>
-                        )}
-
-                        <li onClick={this.toggleStockList}>
-                            <BiPackage /> {isOpen ? "Estoque" : ""}
-                        </li>
-                        {isStockOpen && (
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }} className="sidebar-stock-div">
-                                <strong>
-                                    <div onClick={() => this.props.onComponentSelect("EstoqueControle")} style={{gap: "1rem"}}><CiInboxIn style={{width: "2rem", height: "auto"}}/> Entrada de itens</div>
-                                    <div onClick={() => this.props.onComponentSelect("EstoqueSaida")} style={{gap: "1rem"}}> <CiInboxOut style={{width: "2rem", height: "auto"}}/> Saída de itens</div>
-                                    <div
-                                         onClick={this.toggleModalGerenciarTipos} style={{gap: "1rem"}}><CgArrowTopRightO style={{width: "2rem", height: "auto"}}/> Gerenciar Tipos de Produtos
+                                    <div 
+                                        onClick={() => this.props.onComponentSelect("FinanceReports")} 
+                                        style={{
+                                            gap: "1rem", 
+                                            cursor: 'pointer', 
+                                            display: 'flex', 
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <TbZoomMoney style={{width: "2rem", height: "auto"}}/> Relatórios Financeiros
                                     </div>
                                 </strong>
                             </div>
                         )}
-                        
+
+                        <li 
+                            onClick={this.handleStockListClick} 
+                            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                        >
+                            <BiPackage /> {isOpen ? "Estoque" : ""}
+                        </li>
+                        {isStockOpen && (
+                            <div style={{ 
+                                display: "flex", 
+                                flexDirection: "column", 
+                                justifyContent: "start", 
+                                alignItems: "start" 
+                            }} className="sidebar-stock-div">
+                                <strong>
+                                    <div 
+                                        onClick={() => this.props.onComponentSelect("EstoqueControle")} 
+                                        style={{
+                                            gap: "1rem", 
+                                            cursor: 'pointer', 
+                                            display: 'flex', 
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <CiInboxIn style={{width: "2rem", height: "auto"}}/> Entrada de itens
+                                    </div>
+                                    <div 
+                                        onClick={() => this.props.onComponentSelect("EstoqueSaida")} 
+                                        style={{
+                                            gap: "1rem", 
+                                            cursor: 'pointer', 
+                                            display: 'flex', 
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <CiInboxOut style={{width: "2rem", height: "auto"}}/> Saída de itens
+                                    </div>
+                                    <div
+                                        onClick={this.toggleModalGerenciarTipos} 
+                                        style={{
+                                            gap: "1rem", 
+                                            cursor: 'pointer', 
+                                            display: 'flex', 
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <CgArrowTopRightO style={{width: "2rem", height: "auto"}}/> Gerenciar Tipos de Produtos
+                                    </div>
+                                </strong>
+                            </div>
+                        )}
                     </ul>
                 </div>
 
                 {/* Modal de Gerenciar Tipos */}
                 <ModalGerenciarTipos
                     isOpen={isModalGerenciarTiposOpen}
-                    onClose={this.toggleModalGerenciarTipos}  // Passando a função para fechar o modal
+                    onClose={this.toggleModalGerenciarTipos}
                 />
             </div>
         );

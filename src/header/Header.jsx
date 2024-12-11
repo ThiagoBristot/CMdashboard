@@ -30,9 +30,6 @@ export default class Header extends Component<HeaderProps> {
                     <img src={Logo} alt="logo" className="logoimg"/>
                     <h1>CM Dashboard</h1>
                 </div>
-
-                <input type="text" className="header-searchbar" placeholder="Escreva qual elemento do sistema gostaria de visualizar" />
-
                 <button className="header-settings-btn"><IoMdSettings /></button>
                 <div className="header-logout-lista">
                     <button className="header-login-btn" onClick={this.toggleMenu}><LuLogIn /></button>

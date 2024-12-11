@@ -12,7 +12,7 @@ export default class Home extends Component {
         {/* Cabeçalho */}
         <header className="home-header">
           <div><h1>Bem-vindo ao CMDashboard Dashboard de controle e manutenção! </h1></div>
-          <p>Gerencie seu estoque, finanças, pedidos e muito mais em um só lugar</p>
+          <p>Gerencie seu estoque, finanças, clientes e muito mais em um só lugar</p>
         </header>
 
         {/* Seção de Navegação */}
@@ -26,11 +26,6 @@ export default class Home extends Component {
             <div className="home-nav-card">
                 <h3><MdAttachMoney style={{width: "2em", height: "auto"}}/></h3>
                 <p>Acompanhe suas despesas, receitas e fluxo de caixa.</p>
-            </div>
-
-            <div className="home-nav-card">
-                <h3><FaBasketShopping style={{width: "2em", height: "auto"}}/></h3>
-                <p>Gerencie os pedidos de seus clientes e acompanhe o status.</p>
             </div>
 
             <div className="home-nav-card">

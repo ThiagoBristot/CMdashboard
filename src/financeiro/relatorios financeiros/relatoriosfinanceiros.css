@@ -14,8 +14,8 @@
   background-color: var(--bg-primary);
   color: var(--text-primary);
   border-radius: 1rem;
-  width: 80vw;
-  height: 100vh;
+  width: 70vw;
+  height: 120vh;
   border: 1px solid #e0e0e0;
   border-top: 0;
 }

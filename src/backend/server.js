@@ -482,7 +482,79 @@ app.delete("/vendas/:idVenda", (req, res) => {
     });
 });
 
+// Rota para buscar dados de vendas
+app.post('/sumvendas', (req, res) => {
+    const { startMonth, endMonth } = req.body;
 
+    // Validação dos parâmetros
+    if (startMonth == null || endMonth == null) {
+        return res.status(400).json({ error: "Parâmetros startMonth e endMonth são obrigatórios." });
+    }
+
+    // Consulta SQL
+    const query = `
+        SELECT 
+            MONTH(datavenda) AS monthIndex,
+            SUM(valorVenda) AS ganho
+        FROM vendas
+        WHERE MONTH(datavenda) BETWEEN ? AND ?
+        GROUP BY MONTH(datavenda)
+        ORDER BY monthIndex
+    `;
+
+    db.query(query, [Number(startMonth) + 1, Number(endMonth) + 1], (err, rows) => {
+        if (err) {
+            console.error("Erro ao executar a rota /sumvendas:", err);
+            return res.status(500).json({ error: "Erro ao buscar dados financeiros." });
+        }
+
+        // Transformação dos dados
+        const data = rows.map(row => ({
+            monthIndex: row.monthIndex - 1,
+            month: new Date(0, row.monthIndex - 1).toLocaleString('pt-BR', { month: 'short' }),
+            ganho: row.ganho || 0
+        }));
+
+        // Retorno da resposta
+        res.json(data);
+    });
+});
+
+// Rota para buscar dados de gastos
+app.post('/sumgastos', (req, res) => {
+    const { startMonth, endMonth } = req.body;
+
+    // Validação dos parâmetros
+    if (startMonth == null || endMonth == null) {
+        return res.status(400).json({ error: "Parâmetros startMonth e endMonth são obrigatórios." });
+    }
+
+    // Consulta para obter os gastos no intervalo
+    const query = `
+        SELECT 
+            MONTH(datacadastro) AS monthIndex,
+            SUM(valorEntrada) AS gasto
+        FROM produtos
+        WHERE MONTH(datacadastro) BETWEEN ? AND ?
+        GROUP BY MONTH(datacadastro)
+        ORDER BY monthIndex
+    `;
+
+    db.query(query, [Number(startMonth) + 1, Number(endMonth) + 1], (err, rows) => {
+        if (err) {
+            console.error("Erro ao executar a rota /sumgastos:", err);
+            return res.status(500).json({ error: "Erro ao buscar dados de gastos." });
+        }
+
+        const data = rows.map(row => ({
+            monthIndex: row.monthIndex - 1,
+            month: new Date(0, row.monthIndex - 1).toLocaleString('pt-BR', { month: 'short' }),
+            gasto: row.gasto || 0
+        }));
+
+        res.json(data);
+    });
+});
 
 const PORT = 5000;
 app.listen(PORT, () => {
