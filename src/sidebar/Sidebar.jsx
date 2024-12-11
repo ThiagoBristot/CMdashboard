@@ -74,7 +74,7 @@ class ModalGerenciarTipos extends Component {
             descricaoTipoProduto: this.state.novoTipoDesc 
         });
     
-        fetch("http://localhost:5000/tipoprodutos", {
+        fetch("https://quiet-carefully-elk.ngrok-free.app/tipoprodutos", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json" 
@@ -103,7 +103,7 @@ class ModalGerenciarTipos extends Component {
     };
     
     editarTipo = (tipo) => {
-        fetch(`http://localhost:5000/tipoprodutos/${tipo.idTipoProduto}`, {
+        fetch(`https://quiet-carefully-elk.ngrok-free.app/tipoprodutos/${tipo.idTipoProduto}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -116,7 +116,7 @@ class ModalGerenciarTipos extends Component {
     };
 
     excluirTipo = (idTipoProduto) => {
-        fetch(`http://localhost:5000/tipoprodutos/${idTipoProduto}`, {
+        fetch(`https://quiet-carefully-elk.ngrok-free.app/tipoprodutos/${idTipoProduto}`, {
             method: "DELETE",
         })
             .then(() => this.buscarTipos())

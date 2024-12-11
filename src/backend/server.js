@@ -2,6 +2,7 @@
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
+const bcrypt = require('bcryptjs');
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -555,6 +556,87 @@ app.post('/sumgastos', (req, res) => {
         res.json(data);
     });
 });
+
+// Endpoint para login
+app.post("/login", (req, res) => {
+    const { usuario, senha } = req.body;
+
+    // Verifica se o usuário existe no banco
+    const query = "SELECT * FROM cmusuario WHERE usuario = ?";
+    db.query(query, [usuario], async (err, results) => {
+        if (err) {
+            return res.status(500).send("Erro ao buscar usuário.");
+        }
+
+        if (results.length === 0) {
+            return res.status(401).send("Usuário não encontrado.");
+        }
+
+        const user = results[0];
+
+        try {
+            // Compara a senha enviada com o hash armazenado
+            const match = await bcrypt.compare(senha, user.senhaHash);
+
+            if (match) {
+                // Atualiza o último login do usuário
+                const updateQuery = "UPDATE cmusuario SET ultimoLogin = NOW() WHERE idUsuario = ?";
+                db.query(updateQuery, [user.idUsuario], (err, result) => {
+                    if (err) {
+                        return res.status(500).send("Erro ao atualizar o último login.");
+                    }
+
+                    // Retorna o usuário e o cargo após login bem-sucedido
+                    res.status(200).json({
+                        message: "Login bem-sucedido!",
+                        usuario: user.usuario,
+                        cargo: user.cargo,
+                    });
+                });
+            } else {
+                res.status(401).send("Senha incorreta.");
+            }
+        } catch (err) {
+            res.status(500).send("Erro ao verificar a senha.");
+        }
+    });
+});
+
+// Rota para registrar um novo usuário
+app.post('/register', async (req, res) => {
+    const { usuario, senha, cargo } = req.body;
+  
+    // Verificar se todos os dados foram enviados
+    if (!usuario || !senha || !cargo) {
+      return res.status(400).send('Dados incompletos');
+    }
+  
+    // Verificar se o usuário já existe
+    db.query('SELECT * FROM cmusuario WHERE usuario = ?', [usuario], async (err, result) => {
+      if (err) {
+        return res.status(500).send('Erro ao verificar usuário');
+      }
+  
+      if (result.length > 0) {
+        return res.status(400).send('Usuário já existe');
+      }
+  
+      // Criptografar a senha
+      const salt = await bcrypt.genSalt(10);
+      const senhaHash = await bcrypt.hash(senha, salt);
+  
+      // Inserir novo usuário no banco de dados
+      const query = 'INSERT INTO cmusuario (usuario, senhaHash, cargo) VALUES (?, ?, ?)';
+      db.query(query, [usuario, senhaHash, cargo], (err, result) => {
+        if (err) {
+          return res.status(500).send('Erro ao registrar usuário');
+        }
+  
+        // Retornar a resposta com os dados do usuário
+        res.status(201).json({ idUsuario: result.insertId, usuario, cargo });
+      });
+    });
+  });
 
 const PORT = 5000;
 app.listen(PORT, () => {
