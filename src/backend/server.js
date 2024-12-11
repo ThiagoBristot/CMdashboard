@@ -49,10 +49,10 @@ app.get("/clientes", (req, res) => {
 
 // Rota para adicionar um cliente
 app.post("/clientes", (req, res) => {
-    const { nomeCliente, enderecoCliente, telefoneCliente, emailCliente } = req.body;
-    const query = "INSERT INTO clientes (nomeCliente, enderecoCliente, telefoneCliente, emailCliente) VALUES (?, ?, ?, ?)";
+    const { nomeCliente, CPFCliente, enderecoCliente, telefoneCliente, emailCliente } = req.body;
+    const query = "INSERT INTO clientes (nomeCliente, CPFCliente, enderecoCliente, telefoneCliente, emailCliente) VALUES (?, ?, ?, ?, ?)";
     console.log('Requisição recebida:', req.body);
-    db.query(query, [nomeCliente, enderecoCliente, telefoneCliente, emailCliente ], (err, result) => {
+    db.query(query, [nomeCliente, CPFCliente, enderecoCliente, telefoneCliente, emailCliente ], (err, result) => {
         if (err) {
             res.status(500).send("Erro ao adicionar cliente");
         } else {

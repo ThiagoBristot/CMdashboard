@@ -221,9 +221,18 @@ export default class ManCliente extends Component {
   }
 
   fetchClientes = async () => {
-    const response = await fetch("http://localhost:5000/clientes");
-    const clientes = await response.json();
-    this.setState({ clientes });
+    const authToken = "ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW";
+    fetch("https://quiet-carefully-elk.ngrok-free.app/clientes", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${authToken}`,
+            "ngrok-skip-browser-warning": 1,
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => this.setState({ clientes: data }))
+        .catch((error) => console.error("Erro ao buscar clientes:", error));
   };
 
   abrirModal = (cliente) => {
@@ -235,7 +244,7 @@ export default class ManCliente extends Component {
   };
 
   salvarCliente = async (cliente) => {
-    await fetch(`http://localhost:5000/clientes/${cliente.id}`, {
+    await fetch(`https://quiet-carefully-elk.ngrok-free.app/clientes/${cliente.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(cliente),
@@ -243,9 +252,9 @@ export default class ManCliente extends Component {
     this.fetchClientes();
     this.fecharModal();
   };
-
+  
   deletarCliente = async (id) => {
-    await fetch(`http://localhost:5000/clientes/${id}`, { method: "DELETE" });
+    await fetch(`https://quiet-carefully-elk.ngrok-free.app/clientes/${id}`, { method: "DELETE" });
     this.fetchClientes();
   };
 
@@ -258,14 +267,14 @@ export default class ManCliente extends Component {
   };
 
   cadastrarCliente = async (novoCliente) => {
-    await fetch("http://localhost:5000/clientes", {
+    await fetch("https://quiet-carefully-elk.ngrok-free.app/clientes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(novoCliente),
     });
     this.fetchClientes();
     this.fecharCadastro();
-  };
+  }; 
 
   handleSearch = (e) => {
     this.setState({ searchTerm: e.target.value }); // Atualiza o termo de pesquisa

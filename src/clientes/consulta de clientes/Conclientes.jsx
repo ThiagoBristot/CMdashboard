@@ -12,9 +12,18 @@ export default class ConClientes extends Component {
     }
     
     fetchClientes = async () => {
-        const response = await fetch("http://localhost:5000/clientes");
-        const clientes = await response.json();
-        this.setState({ clientes });
+        const authToken = "ak_2pXWf6mAlrMYNVuI7bhf4mSw1pW";
+        fetch("https://quiet-carefully-elk.ngrok-free.app/clientes", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${authToken}`,
+                "ngrok-skip-browser-warning": 1,
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => this.setState({ clientes: data }))
+            .catch((error) => console.error("Erro ao buscar clientes:", error));
     };
 
 
